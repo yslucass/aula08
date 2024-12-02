@@ -1,29 +1,37 @@
 import { useState } from "react";
+import {useNavigate} from "react-router-dom";
 
 export default function Registrar() {
     const [Nome, setNome] = useState("");
     const [Email, setEmail] = useState("");
 
+    const navigation = useNavigate();
+
     const registro = async () => {
+      event.preventDefault();
       try{
-          await fetch('https//localhost:3000/usuarios', {
+          const resposta = await fetch('http://localhost:3000/usuarios', {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
+          headers: {'Content-Type': 'Application/json'},
           body: JSON.stringify({
-            Nome: Nome,
-            Email: Email
+            nome: Nome,
+            email: Email
           })
         });
+        if(resposta.ok){
+          navigation("/")
+        }
       } catch{
-        alert("Ocorreu um ero na aplicação!");
+        alert("Ocorreu um erro na aplicação!");
       }
     }
 
   return (
         <main>
-          <form onSubmit={event.preventDefault}>
-              <input type="text" value={Nome} onChange={(event) => setNome(event.target.value)}></input>
-              <input type="text" value={Nome} onChange={(event) => setEmail(event.target.value)}></input>
+          <form onSubmit={registro}>
+              <input type="text" name="" value={Nome} onChange={(event) => setNome(event.target.value)}></input>
+              <input type="text" name="" value={Email} onChange={(event) => setEmail(event.target.value)}></input>
+              <button>Salvar</button>
           </form>
         </main>
   );
