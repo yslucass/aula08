@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 export default function Registrar() {
     const [Nome, setNome] = useState("");
     const [Email, setEmail] = useState("");
-
+    
     const navigation = useNavigate();
 
     const registro = async () => {
