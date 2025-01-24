@@ -1,73 +1,95 @@
-import { useEffect, useState } from "react";
-import {jsPDF} from "jspdf";
+import React, { useEffect, useState } from "react";
+import { jsPDF } from "jspdf";
 import "jspdf-autotable";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
+import './styles.css';
 
 export default function Home() {
+    const [pets, setPets] = useState([]);
 
-  const [usuarios, setUsuarios] = useState([]);
+    useEffect(() => {
+        const buscarPets = async () => {
+            try {
+                const resposta = await fetch("http://localhost:3000/pets");
+                const dados = await resposta.json();
+                setPets(dados);
+            } catch {
+                alert('Ocorreu um erro ao buscar os dados dos pets!');
+            }
+        };
+        buscarPets();
+    }, []);
 
-  useEffect(() => {
-    const buscarUsuario = async () => {
-      try {
-        const resposta = await fetch("http://localhost:3000/usuarios");
-        const dados = await resposta.json();
-        setUsuarios(dados);
-      } catch {
-        alert('Ocorreu um erro no app!');
-      }
-    }
-    buscarUsuario();
-  }, [usuarios])
+    const removerPet = async (id) => {
+        try {
+            await fetch('http://localhost:3000/pets/' + id, {
+                method: 'DELETE'
+            });
+            setPets(pets.filter(pet => pet.id !== id));
+        } catch {
+            alert("Erro ao remover o pet!");
+        }
+    };
 
-  const removerPessoa = async(id) => {
-    try{
-      await fetch('http://localhost:3000/usuarios/'+id, {
-        method: 'DELETE'
-      })
-    } catch{
-      alert("Erro!")
-    }
-  }
+    const exportarPDF = () => {
+        const doc = new jsPDF();
+        const tabela = pets.map(pet => [
+            pet.id,
+            pet.nome,
+            pet.email,
+            pet.nomePet,
+            pet.endereco,
+            pet.telefone,
+            pet.raca,
+            pet.idade
+        ]);
+        doc.text("Lista de Pets", 10, 10);
+        doc.autoTable({
+            head: [["ID", "Nome", "E-mail", "Nome do Pet", "Endereço", "Telefone", "Raça", "Idade"]],
+            body: tabela
+        });
+        doc.save("pets.pdf");
+    };
 
-  const exportarpdf = () =>{
-    const doc = new jsPDF();
-
-    const tabela = usuarios.map(usuario =>[
-      usuario.id,
-      usuario.nome,
-      usuario.email
-    ]);
-    doc.text("Lista de Usuário", 10, 10);
-    doc.autoTable({
-      head: [["ID", "Nome", "E-mail"]],
-      body: tabela
-    });
-
-    doc.save("alunos.pdf")
-  }
-
-  return (
-    <div>
-      <button variant="contained" onClick={() => exportarpdf()}>Gerar PDF</button>
-    <table>
-      <tr>
-        <td>Nome</td>
-        <td>E-mail</td>
-      </tr>
-      {usuarios.map((usuario) =>
-        <tr key={usuario.id}>
-          <td>{usuario.nome}</td>
-          <td>{usuario.email}</td>
-          <td><button onClick={()=> removerPessoa(usuario.id)}>X</button>
-          <Link to={'/Alterar/' + usuario.id}>
-          <button>Alterar</button>
-          </Link>
-          </td>
-        </tr>
-      )}
-    </table>
-    </div>
-  );
+    return (
+        <div className="home-container">
+            <div className="export-container">
+                <Button variant="contained" onClick={() => exportarPDF()}>Gerar PDF</Button>
+            </div>
+            <table className="pets-table">
+                <thead>
+                    <tr>
+                        <td>Nome</td>
+                        <td>E-mail</td>
+                        <td>Nome do Pet</td>
+                        <td>Endereço</td>
+                        <td>Telefone</td>
+                        <td>Raça</td>
+                        <td>Idade</td>
+                        <td>Ações</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {pets.map((pet) => (
+                        <tr key={pet.id}>
+                            <td>{pet.nome}</td>
+                            <td>{pet.email}</td>
+                            <td>{pet.nomePet}</td>
+                            <td>{pet.endereco}</td>
+                            <td>{pet.telefone}</td>
+                            <td>{pet.raca}</td>
+                            <td>{pet.idade}</td>
+                            <td className="actions">
+                                <button className="remove-btn" onClick={() => removerPet(pet.id)}>X</button>
+                                <Link to={`/alterar/${pet.id}`}>
+                                    <button className="edit-btn">Alterar</button>
+                                </Link>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
 }

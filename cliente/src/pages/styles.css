@@ -1,0 +1,218 @@
+/* Estilos gerais do corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #92adf8;
+    margin: 0;
+    padding: 0;
+}
+
+.titulo-registrar {
+    font-size: 25px;
+    font-weight: bold;
+    color: #000000;
+    text-align: center;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+/* Estilo do formulário */
+form {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo dos inputs */
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Foco nos campos de entrada */
+input:focus {
+    border-color: #0056b3;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.3);
+}
+
+/* Estilo do botão */
+.save {
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.save:hover {
+    background-color: #218838;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    form {
+        width: 90%;
+        padding: 15px;
+    }
+    .save {
+        font-size: 14px;
+    }
+}
+
+.home-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo do Container de Exportação */
+  .export-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .pets-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .pets-table th,
+  .pets-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .pets-table th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .pets-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .remove-btn,
+  .edit-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .remove-btn {
+    background-color: #ff4d4d;
+    color: white;
+  }
+  
+  .remove-btn:hover {
+    background-color: #e60000;
+  }
+  
+  .edit-btn {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .edit-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilo para o Botão Gerar PDF */
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #218838;
+  }
+
+  .lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+  }
+  
+  /* Cada item da lista */
+  .item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    transition: transform 0.2s ease;
+  }
+  
+  .item:hover {
+    transform: translateY(-10px);
+  }
+  
+  /* Card de cada pet */
+  .card {
+    text-align: center;
+  }
+  
+  /* Estilo para as imagens */
+  .imagem {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+  
+  /* Estilo para textos no formato de lista */
+  .card h2 {
+    color: #333;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .card p {
+    color: #666;
+    font-size: 14px;
+    margin: 5px 0;
+  }
+  
+  .card strong {
+    color: #007bff;
+  }
+  
+  /* Mensagem quando não há pets */
+  .nenhumPet {
+    text-align: center;
+    font-size: 18px;
+    color: #ff5733;
+    margin-top: 20px;
+  }
