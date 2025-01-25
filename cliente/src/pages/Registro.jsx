@@ -55,7 +55,7 @@ export default function Registrar() {
   return (
     <main>
       <form onSubmit={registro}>
-        <h2 className="titulo-registrar">Registrar</h2>
+        <h2 className="titulo-registrar">Cadastrar</h2>
         <input
           type="text"
           value={Nome}
